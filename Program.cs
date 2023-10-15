@@ -13,14 +13,14 @@ string[] groups = { "", "ezer", "millió", "milliárd", "billió", "billiárd", 
 int digitPosition = 0;
 int groupPosition = 0;
 
-int treeDigits;
+int threeDigits;
 int one, ten, hundred;
 
 while (myNumber > 0)
 {
-    treeDigits = (int)(myNumber % 1000);
+    threeDigits = (int)(myNumber % 1000);
 
-    if (treeDigits == 0)
+    if (threeDigits == 0)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -35,9 +35,9 @@ while (myNumber > 0)
         digitPosition++;
         groupPosition++;
 
-        one = treeDigits % 10;
-        ten = treeDigits % 100 / 10;
-        hundred = treeDigits / 100;
+        one = threeDigits % 10;
+        ten = threeDigits % 100 / 10;
+        hundred = threeDigits / 100;
 
         digitText[digitPosition] = ones[one];
         digitPosition++;
