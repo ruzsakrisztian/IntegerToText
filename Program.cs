@@ -1,4 +1,4 @@
-﻿long myNumber = 32331430;
+﻿long myNumber = 2430;
 
 int myNumberLength = (int)Math.Log10(myNumber) + 3;
 
@@ -8,7 +8,8 @@ string[] ones = { "", "egy", "kettő", "három", "négy", "öt", "hat", "hét", 
 string[] tens = { "", "tizen", "húszon", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven" };
 string[] wholeTens = { "", "tíz", "húsz", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven" };
 string[] hundreds = { "", "száz", "kétszáz", "háromszáz", "négyszáz", "ötszáz", "hatszáz", "hétszáz", "nyolcszáz", "kilencszáz" };
-string[] groups = { "", "ezer", "millió", "milliárd", "billió", "billiárd", "trillió", "trilliárd", "kvadrillió", "kvadrilliárd" };
+string[] groups = { "", "ezer", "millió-", "milliárd-", "billió-", "billiárd-", "trillió-", "trilliárd-", "kvadrillió", "kvadrilliárd" };
+groups[1] += myNumber > 2000 ? "-" : "";
 
 int digitPosition = 0;
 int groupPosition = 0;
@@ -22,22 +23,29 @@ while (myNumber > 0)
 
     if (threeDigits == 0)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            digitText[digitPosition] = "";
-            digitPosition++;
-        }
+        addDigitText(ones, 0);
+        addDigitText(tens, 0);
+        addDigitText(hundreds, 0);
         groupPosition++;
     }
     else
     {
-        addDigitText(groups, groupPosition);
+        
 
         one = threeDigits % 10;
         ten = threeDigits % 100 / 10;
         hundred = threeDigits / 100;
 
-        addDigitText(ones, one);
+        addDigitText(groups, groupPosition);
+
+        if (digitPosition == 5 && myNumber == 1)
+        {
+            addDigitText(ones, 0);
+        }
+        else
+        {
+            addDigitText(ones, one);
+        }
 
         if (one == 0)
         {
@@ -56,7 +64,6 @@ while (myNumber > 0)
 for (int i = digitText.Length - 1; i > -1; i--)
 {
     Console.Write(digitText[i]);
-    // Output example: "harminckettőmillióháromszázharmincezernégyszázharminc"
 }
 
 void addDigitText(string[] digitArray, int position)
