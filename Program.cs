@@ -1,4 +1,4 @@
-﻿long myNumber = 32330430;
+﻿long myNumber = 32331430;
 
 int myNumberLength = (int)Math.Log10(myNumber) + 3;
 
@@ -31,30 +31,23 @@ while (myNumber > 0)
     }
     else
     {
-        digitText[digitPosition] = groups[groupPosition];
-        digitPosition++;
-        groupPosition++;
+        addDigitText(groups, groupPosition);
 
         one = threeDigits % 10;
         ten = threeDigits % 100 / 10;
         hundred = threeDigits / 100;
 
-        digitText[digitPosition] = ones[one];
-        digitPosition++;
+        addDigitText(ones, one);
 
         if (one == 0)
         {
-            digitText[digitPosition] = wholeTens[ten];
-            digitPosition++;
+            addDigitText(wholeTens, ten);
         }
         else
         {
-            digitText[digitPosition] = tens[ten];
-            digitPosition++;
+            addDigitText(tens, ten);
         }
-
-        digitText[digitPosition] = hundreds[hundred];
-        digitPosition++;
+        addDigitText(hundreds, hundred);
     }
 
     myNumber /= 1000;
@@ -64,4 +57,14 @@ for (int i = digitText.Length - 1; i > -1; i--)
 {
     Console.Write(digitText[i]);
     // Output example: "harminckettőmillióháromszázharmincezernégyszázharminc"
+}
+
+void addDigitText(string[] digitArray, int position)
+{
+    digitText[digitPosition] = digitArray[position];
+    digitPosition++;
+    if (digitArray == groups)
+    {
+        groupPosition++;
+    }
 }
