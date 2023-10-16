@@ -1,4 +1,4 @@
-﻿long myNumber = 2430;
+﻿long myNumber = 2430000;
 
 int myNumberLength = (int)Math.Log10(myNumber) + 3;
 
@@ -8,7 +8,8 @@ string[] ones = { "", "egy", "kettő", "három", "négy", "öt", "hat", "hét", 
 string[] tens = { "", "tizen", "húszon", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven" };
 string[] wholeTens = { "", "tíz", "húsz", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven" };
 string[] hundreds = { "", "száz", "kétszáz", "háromszáz", "négyszáz", "ötszáz", "hatszáz", "hétszáz", "nyolcszáz", "kilencszáz" };
-string[] groups = { "", "ezer", "millió-", "milliárd-", "billió-", "billiárd-", "trillió-", "trilliárd-", "kvadrillió", "kvadrilliárd" };
+
+string[] groups = { "", "ezer", "millió-", "milliárd-", "billió-", "billiárd-", "trillió-", "trilliárd-", "kvadrillió-", "kvadrilliárd-" };
 groups[1] += myNumber > 2000 ? "-" : "";
 
 int digitPosition = 0;
@@ -30,8 +31,6 @@ while (myNumber > 0)
     }
     else
     {
-        
-
         one = threeDigits % 10;
         ten = threeDigits % 100 / 10;
         hundred = threeDigits / 100;
@@ -61,10 +60,19 @@ while (myNumber > 0)
     myNumber /= 1000;
 }
 
+string outputText = "";
 for (int i = digitText.Length - 1; i > -1; i--)
 {
-    Console.Write(digitText[i]);
+    outputText += digitText[i];
 }
+
+char lastCharacter = outputText[outputText.Length - 1];
+if (lastCharacter == '-')
+{
+    outputText = outputText.Remove(outputText.Length-1);
+}
+
+Console.WriteLine(outputText);
 
 void addDigitText(string[] digitArray, int position)
 {
